@@ -122,6 +122,53 @@ body {
     color: #f5bd42;
 }
 
+/* GAME SEARCH BAR */
+.game-search-container {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.game-search {
+    width: 100%;
+    padding: 15px 18px 15px 45px;
+    background: #1b1b23;
+    border: 1px solid #383842;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: 0.25s;
+}
+
+.game-search:focus {
+    border-color: #f5bd42;
+    box-shadow: 0 0 15px #f5bd4225;
+}
+
+.game-search::placeholder {
+    color: #777;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #f5bd42;
+    pointer-events: none;
+}
+
+.no-results {
+    display: none;
+    color: #888;
+    text-align: center;
+    padding: 35px 10px;
+    font-size: 16px;
+}
+
 /* GAMES */
 .games-grid {
     display: grid;
@@ -328,7 +375,21 @@ body {
 
         <h1 class="page-title">GAMES</h1>
 
-        <div class="games-grid">
+        <!-- SEARCH BAR -->
+        <div class="game-search-container">
+            <span class="search-icon">⌕</span>
+            <input
+                type="text"
+                id="gameSearch"
+                class="game-search"
+                placeholder="Search games..."
+                autocomplete="off"
+                oninput="searchGames()"
+            >
+        </div>
+
+        <!-- GAMES GRID -->
+        <div class="games-grid" id="gamesGrid">
 
             <div class="game-card" onclick="openGame('/games/ovo.html')">
                 <img class="game-image"
@@ -357,6 +418,11 @@ body {
                 </div>
             </div>
 
+        </div>
+
+        <!-- NO RESULTS MESSAGE -->
+        <div class="no-results" id="noResults">
+            No games found. Try another search!
         </div>
 
     </section>
@@ -423,6 +489,37 @@ function showPage(page, button) {
     });
 
     button.classList.add('active');
+}
+
+// SEARCH GAMES
+function searchGames() {
+
+    const searchInput = document
+        .getElementById('gameSearch')
+        .value.toLowerCase()
+        .trim();
+
+    const gameCards = document.querySelectorAll('.game-card');
+    let visibleGames = 0;
+
+    gameCards.forEach(card => {
+
+        const gameName = card
+            .querySelector('h3')
+            .textContent
+            .toLowerCase();
+
+        if (gameName.includes(searchInput)) {
+            card.style.display = '';
+            visibleGames++;
+        } else {
+            card.style.display = 'none';
+        }
+
+    });
+
+    document.getElementById('noResults').style.display =
+        visibleGames === 0 ? 'block' : 'none';
 }
 
 // OPEN GAMES
