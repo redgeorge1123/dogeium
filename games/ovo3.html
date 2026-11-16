@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base
+      href="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/"
+    />
+
+    <link
+      rel="manifest"
+      href="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/appmanifest.json"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="256x256"
+      href="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/icon-256.png"
+    />
+
+    <link
+      rel="shortcut icon"
+      sizes="256x256"
+      href="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/icon-256.png"
+    />
+
+    <style type="text/css">
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      html,
+      body {
+        background: #000;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none;
+        -ms-touch-action: none;
+        cursor: none !important;
+      }
+
+      canvas {
+        touch-action-delay: none;
+        touch-action: none;
+        -ms-touch-action: none;
+        cursor: none !important;
+      }
+
+      /* Custom Yellow Cursor Dot */
+      #custom-cursor {
+        position: fixed;
+        width: 9px;
+        height: 9px;
+        background: #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 999999;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffeb00;
+      }
+
+      /* Slowly Following Circle */
+      #cursor-circle {
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 999998;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s;
+      }
+    </style>
+
+    <link
+      href="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/animate.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/hmmg_layoutTransition.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/jquery.gritter.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+
+  <body>
+    <div id="fb-root"></div>
+
+    <script>
+      (function () {
+        if (window.location.protocol.substr(0, 4) === "file") {
+          alert(
+            "Exported games won't work until you upload them. (When running on the file:/// protocol, browsers block many features from working for security reasons.)",
+          );
+        }
+      })();
+    </script>
+
+    <div id="c2canvasdiv">
+      <canvas id="c2canvas" width="1920" height="1080">
+        <h1>
+          Your browser does not appear to support HTML5. Try upgrading your
+          browser to the latest version.
+          <a href="http://www.whatbrowser.org">What is a browser?</a>
+          <br />
+          <br />
+          <a
+            href="http://www.microsoft.com/windows/internet-explorer/default.aspx"
+          >
+            Microsoft Internet Explorer
+          </a>
+          <br />
+          <a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a>
+          <br />
+          <a href="http://www.google.com/chrome/">Google Chrome</a>
+          <br />
+          <a href="http://www.apple.com/safari/download/">Apple Safari</a>
+        </h1>
+      </canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/jquery-3.4.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/Tween.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/html2canvas.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/jquery.gritter.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/howler.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/c2runtime.js"></script>
+
+    <script>
+      jQuery(document).ready(function () {
+        cr_createRuntime("c2canvas");
+      });
+
+      function onVisibilityChanged() {
+        if (
+          document.hidden ||
+          document.mozHidden ||
+          document.webkitHidden ||
+          document.msHidden
+        )
+          cr_setSuspended(true);
+        else cr_setSuspended(false);
+      }
+
+      document.addEventListener("visibilitychange", onVisibilityChanged, false);
+      document.addEventListener(
+        "mozvisibilitychange",
+        onVisibilityChanged,
+        false,
+      );
+      document.addEventListener(
+        "webkitvisibilitychange",
+        onVisibilityChanged,
+        false,
+      );
+      document.addEventListener(
+        "msvisibilitychange",
+        onVisibilityChanged,
+        false,
+      );
+
+      function OnRegisterSWError(e) {
+        console.warn("Failed to register service worker: ", e);
+      }
+
+      window.C2_RegisterSW = function C2_RegisterSW() {
+        if (!navigator.serviceWorker) return;
+        try {
+          navigator.serviceWorker
+            .register(
+              "https://cdn.jsdelivr.net/gh/bubblfan/ovo-3-dimension@102179bf4242fd237c46c555ba154c2f325d351c/sw.js",
+              {
+                scope: "./",
+              },
+            )
+            .then(function (reg) {
+              console.log("Registered service worker on " + reg.scope);
+            })
+            .catch(OnRegisterSWError);
+        } catch (e) {
+          OnRegisterSWError(e);
+        }
+      };
+    </script>
+
+    <!-- Custom Cursor Script -->
+    <script>
+      (function () {
+        const dot = document.createElement("div");
+        dot.id = "custom-cursor";
+
+        const circle = document.createElement("div");
+        circle.id = "cursor-circle";
+
+        document.body.appendChild(circle);
+        document.body.appendChild(dot);
+
+        let mouseX = -100;
+        let mouseY = -100;
+
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        document.addEventListener("mousedown", function () {
+          circle.style.width = "27px";
+          circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+          circle.style.width = "35px";
+          circle.style.height = "35px";
+        });
+
+        document.addEventListener("mouseleave", function () {
+          dot.style.opacity = "0";
+          circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+          dot.style.opacity = "1";
+          circle.style.opacity = "1";
+        });
+      })();
+    </script>
+  </body>
+</html>
