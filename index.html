@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOGEIUM</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none !important;
+}
+
+body {
+    background: #101014;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 230px;
+    background: #17171e;
+    border-right: 1px solid #292932;
+    padding: 25px 15px;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #f5bd42;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.nav-title {
+    color: #777;
+    font-size: 11px;
+    margin: 20px 12px 12px;
+    letter-spacing: 2px;
+}
+
+.nav-button {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 8px;
+    background: transparent;
+    color: #aaa;
+    border: none;
+    border-radius: 9px;
+    text-align: left;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.nav-button:hover,
+.nav-button.active {
+    background: #f5bd42;
+    color: #101014;
+    font-weight: bold;
+    box-shadow: 0 0 15px #f5bd4250;
+}
+
+/* MAIN */
+.main {
+    margin-left: 230px;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    min-height: calc(100vh - 60px);
+}
+
+.page.active {
+    display: block;
+}
+
+/* HOME */
+#home {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#home.active {
+    display: flex;
+}
+
+#home h1 {
+    font-size: clamp(55px, 10vw, 110px);
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: #f5bd42;
+    text-shadow: 0 0 20px #f5bd4280,
+                 0 0 60px #f5bd4240;
+}
+
+#home p {
+    color: #888;
+    font-size: 16px;
+    margin-top: 15px;
+    letter-spacing: 4px;
+}
+
+/* PAGE TITLES */
+.page-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #f5bd42;
+}
+
+/* GAMES */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background: #1b1b23;
+    border: 1px solid #30303b;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.25s;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #f5bd42;
+    box-shadow: 0 0 20px #f5bd4230;
+}
+
+.game-image {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+    background: #29232b;
+}
+
+.game-info {
+    padding: 13px;
+    text-align: center;
+}
+
+.game-info h3 {
+    color: white;
+    font-size: 16px;
+}
+
+/* CLOAK */
+.cloak-box {
+    background: #1b1b23;
+    border: 1px solid #30303b;
+    padding: 25px;
+    border-radius: 13px;
+    max-width: 500px;
+}
+
+.cloak-box h2 {
+    margin-bottom: 15px;
+}
+
+.cloak-box label {
+    display: block;
+    margin: 18px 0 8px;
+    color: #aaa;
+}
+
+.cloak-box input {
+    width: 100%;
+    padding: 13px;
+    background: #101014;
+    border: 1px solid #383842;
+    border-radius: 7px;
+    color: white;
+    outline: none;
+}
+
+.cloak-box input:focus {
+    border-color: #f5bd42;
+}
+
+.cloak-button {
+    margin-top: 20px;
+    padding: 13px 20px;
+    background: #f5bd42;
+    border: none;
+    border-radius: 7px;
+    color: black;
+    font-weight: bold;
+}
+
+.reset-button {
+    margin-left: 8px;
+    padding: 13px 20px;
+    background: #34343d;
+    color: white;
+    border: none;
+    border-radius: 7px;
+}
+
+.note {
+    color: #777;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+/* CUSTOM YELLOW CURSOR */
+.cursor-dot {
+    position: fixed;
+    width: 9px;
+    height: 9px;
+    background: #f5bd42;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px #f5bd42;
+}
+
+.cursor-circle {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #f5bd42;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px #f5bd4230;
+    transition: width 0.2s, height 0.2s;
+}
+
+/* MOBILE */
+@media(max-width: 650px) {
+    .sidebar {
+        width: 65px;
+        padding: 20px 7px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .nav-button {
+        font-size: 0;
+        text-align: center;
+        padding: 14px 5px;
+    }
+
+    .nav-button span {
+        font-size: 20px;
+    }
+
+    .nav-title {
+        display: none;
+    }
+
+    .main {
+        margin-left: 65px;
+        padding: 18px;
+    }
+}
+
+@media (hover: none) {
+    .cursor-dot,
+    .cursor-circle {
+        display: none;
+    }
+
+    * {
+        cursor: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="logo">DOGE</div>
+
+    <div class="nav-title">MENU</div>
+
+    <button class="nav-button active" onclick="showPage('home',this)">
+        <span>⌂</span> Home
+    </button>
+
+    <button class="nav-button" onclick="showPage('games',this)">
+        <span>🎮</span> Games
+    </button>
+
+    <button class="nav-button" onclick="showPage('cloak',this)">
+        <span>👁️</span> Cloak
+    </button>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+    <!-- HOME PAGE -->
+    <section class="page active" id="home">
+
+        <h1>DOGEIUM</h1>
+        <p>WELCOME TO DOGEIUM</p>
+
+    </section>
+
+    <!-- GAMES PAGE -->
+    <section class="page" id="games">
+
+        <h1 class="page-title">GAMES</h1>
+
+        <div class="games-grid">
+
+            <div class="game-card" onclick="openGame('https://ovo-game.github.io/')">
+                <img class="game-image"
+                src="https://ovo-game.github.io/favicon.ico"
+                alt="OvO">
+                <div class="game-info">
+                    <h3>OvO</h3>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CLOAK PAGE -->
+    <section class="page" id="cloak">
+
+        <h1 class="page-title">TAB CLOAK</h1>
+
+        <div class="cloak-box">
+
+            <h2>Customize Your Tab</h2>
+
+            <label>Tab Title</label>
+
+            <input
+                id="tabTitle"
+                placeholder="Enter a new tab title"
+            >
+
+            <label>Favicon Image URL</label>
+
+            <input
+                id="tabIcon"
+                placeholder="Leave empty to remove favicon"
+            >
+
+            <button class="cloak-button" onclick="applyCloak()">
+                Apply Cloak
+            </button>
+
+            <button class="reset-button" onclick="resetCloak()">
+                Reset
+            </button>
+
+            <p class="note">
+                Change your browser tab title and favicon.
+                Leave the image URL empty to remove the favicon.
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-circle" id="cursorCircle"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<script>
+
+// PAGE NAVIGATION
+function showPage(page, button) {
+
+    document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+    });
+
+    document.getElementById(page).classList.add('active');
+
+    document.querySelectorAll('.nav-button').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    button.classList.add('active');
+}
+
+// OPEN GAMES
+function openGame(url) {
+    window.open(url, '_blank');
+}
+
+// APPLY CLOAK
+function applyCloak() {
+
+    const title = document.getElementById('tabTitle').value.trim();
+    const icon = document.getElementById('tabIcon').value.trim();
+
+    if (title) {
+        document.title = title;
+    }
+
+    if (!icon) {
+
+        document.querySelectorAll("link[rel~='icon']").forEach(link => {
+            link.remove();
+        });
+
+    } else {
+
+        let favicon = document.querySelector("link[rel~='icon']");
+
+        if (!favicon) {
+            favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            document.head.appendChild(favicon);
+        }
+
+        favicon.href = icon;
+    }
+}
+
+// RESET CLOAK
+function resetCloak() {
+
+    document.title = 'DOGEIUM';
+
+    document.querySelectorAll("link[rel~='icon']").forEach(link => {
+        link.remove();
+    });
+
+    document.getElementById('tabTitle').value = '';
+    document.getElementById('tabIcon').value = '';
+}
+
+// CUSTOM CURSOR
+const cursorDot = document.getElementById("cursorDot");
+const cursorCircle = document.getElementById("cursorCircle");
+
+let mouseX = 0;
+let mouseY = 0;
+
+let circleX = 0;
+let circleY = 0;
+
+document.addEventListener("mousemove", function(e) {
+
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    cursorDot.style.left = mouseX + "px";
+    cursorDot.style.top = mouseY + "px";
+
+});
+
+function animateCursor() {
+
+    circleX += (mouseX - circleX) * 0.12;
+    circleY += (mouseY - circleY) * 0.12;
+
+    cursorCircle.style.left = circleX + "px";
+    cursorCircle.style.top = circleY + "px";
+
+    requestAnimationFrame(animateCursor);
+}
+
+animateCursor();
+
+</script>
+
+</body>
+</html>
