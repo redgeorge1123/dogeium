@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/" />
+
+    <link
+      rel="manifest"
+      href="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/appmanifest.json"
+    />
+    <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="256x256"
+      href="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/icons/icon-256.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="512x512"
+      href="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/icons/icon-512.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/icons/icon-512.png"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/style.css"
+    />
+
+    <!-- Custom Cursor Styles -->
+    <style>
+      html,
+      body,
+      canvas,
+      * {
+        cursor: none !important;
+      }
+
+      #custom-cursor {
+        position: fixed;
+        width: 9px;
+        height: 9px;
+        background: #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 999999;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffeb00;
+      }
+
+      #cursor-circle {
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 999998;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="fb-root"></div>
+
+    <noscript>
+      <div id="notSupportedWrap">
+        <h2 id="notSupportedTitle">This content requires JavaScript</h2>
+        <p class="notSupportedMessage">
+          JavaScript appears to be disabled. Please enable it to view this
+          content.
+        </p>
+        <p class="notSupportedMessage">
+          This content was developed in Construct 3.
+          <a href="https://www.construct.net/en">Create games online</a>
+        </p>
+      </div>
+    </noscript>
+
+    <script src="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/scripts/supportcheck.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/scripts/offlineclient.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/scripts/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ov464534asa4rb/786132@main/scripts/register-sw.js"></script>
+
+    <!-- Custom Yellow Dot Cursor -->
+    <script>
+      (function () {
+        const dot = document.createElement("div");
+        dot.id = "custom-cursor";
+
+        const circle = document.createElement("div");
+        circle.id = "cursor-circle";
+
+        document.body.appendChild(circle);
+        document.body.appendChild(dot);
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        document.addEventListener("mousedown", function () {
+          circle.style.width = "27px";
+          circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+          circle.style.width = "35px";
+          circle.style.height = "35px";
+        });
+
+        // Hide cursor when mouse leaves the page
+        document.addEventListener("mouseleave", function () {
+          dot.style.opacity = "0";
+          circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+          dot.style.opacity = "1";
+          circle.style.opacity = "1";
+        });
+      })();
+    </script>
+  </body>
+</html>
