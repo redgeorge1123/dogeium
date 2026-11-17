@@ -6,7 +6,6 @@
       href="https://cdn.jsdelivr.net/gh/XxFluffyAsherxX/Eaglercraft-1.12.2@main/Web/"
     />
     <link type="image/png" rel="shortcut icon" href="favicon.png" />
-
     <script type="text/javascript" src="ModAPI.js"></script>
     <script type="text/javascript" src="ModLoader.js"></script>
     <script type="text/javascript" src="ModGUI.js"></script>
@@ -14,7 +13,7 @@
     <script type="text/javascript" src="classes.js"></script>
 
     <style>
-      html, body, canvas, #game_frame {
+      * {
         cursor: none !important;
       }
 
@@ -25,9 +24,9 @@
         background: #ffeb00;
         border-radius: 50%;
         pointer-events: none;
-        z-index: 9999999;
+        z-index: 999999;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #ffeb00;
+        box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
       }
 
       #cursor-circle {
@@ -37,9 +36,12 @@
         border: 2px solid #ffeb00;
         border-radius: 50%;
         pointer-events: none;
-        z-index: 9999998;
+        z-index: 999998;
         transform: translate(-50%, -50%);
-        transition: width 0.2s, height 0.2s;
+        transition:
+          width 0.15s ease,
+          height 0.15s ease;
+        box-shadow: 0 0 10px #ffeb00;
       }
     </style>
 
@@ -102,7 +104,6 @@
     style="margin: 0px; width: 100vw; height: 100vh; overflow: hidden"
     id="game_frame"
   >
-    <!-- Custom Cursor -->
     <div id="cursor-circle"></div>
     <div id="custom-cursor"></div>
 
