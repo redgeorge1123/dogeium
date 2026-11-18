@@ -1,0 +1,149 @@
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L7856P3VNT');
+</script>
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <base href="https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/aquapark-io/">
+
+  <link rel="stylesheet" href="TemplateData/style.css" nonce="gAKBBT4aLfaZvJiS8jIdUw">
+
+  <style>
+    * {
+      cursor: none !important;
+    }
+
+    #custom-cursor {
+      position: fixed;
+      width: 9px;
+      height: 9px;
+      background: #ffeb00;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2147483647;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+    }
+
+    #cursor-circle {
+      position: fixed;
+      width: 35px;
+      height: 35px;
+      border: 2px solid #ffeb00;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2147483646;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease;
+      box-shadow: 0 0 10px #ffeb00;
+    }
+  </style>
+
+  <script nonce="gAKBBT4aLfaZvJiS8jIdUw">
+    if (!window.ytgame) {
+      window.ytgame = {
+        SDK_VERSION: "standalone",
+        IN_PLAYABLES_ENV: false,
+        SdkError: function (t) { this.errorType = t; this.message = ""; },
+        SdkErrorType: { UNDEFINED: 0, GAMEAPI_UNDEFINED: 1 },
+        game: {
+          firstFrameReady: function () {},
+          gameReady: function () {},
+          loadData: function () { return Promise.resolve(localStorage.getItem("aquapark-io-save") || ""); },
+          saveData: function (data) { localStorage.setItem("aquapark-io-save", data); return Promise.resolve(); }
+        },
+        engagement: { sendScore: function () { return Promise.resolve(); } },
+        ads: {
+          requestAd: function () { return Promise.resolve(3); },
+          requestInterstitialAd: function () { return Promise.resolve(); },
+          AdResult: { UNKNOWN: 0, SHOWED: 1, REJECTED: 3, DISMISSED: 2 }
+        },
+        health: { logError: function () {}, logWarning: function () {} },
+        system: {
+          getLanguage: function () { return Promise.resolve("en"); },
+          isAudioEnabled: function () { return true; },
+          onAudioEnabledChange: function () { return function () {}; },
+          onPause: function () { return function () {}; },
+          onResume: function () { return function () {}; }
+        }
+      };
+      window.ytgamehelper = { myConsoleLog: function () {} };
+    }
+  </script>
+</head>
+
+<body>
+  <div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" width="100%" height="100%" tabindex="-1"></canvas>
+    <div id="unity-loading-bar" class="unity-preload-1">
+      <div id="filler"></div>
+      <div id="playBtn" class="btnAppear"></div>
+      <div id="carroutxt"></div>
+      <div id="unity-progress-bar-empty">
+        <div id="unity-progress-bar-full"></div>
+      </div>
+    </div>
+    <div id="unity-warning"></div>
+  </div>
+
+  <div id="cursor-circle"></div>
+  <div id="custom-cursor"></div>
+
+  <script src="unarchiver.min.js" nonce="gAKBBT4aLfaZvJiS8jIdUw">// used for decompression if zip files are used</script>
+  <script src="main.js" nonce="gAKBBT4aLfaZvJiS8jIdUw"> // Logic for Unity contianer</script>
+
+  <script>
+    (function () {
+      const dot = document.getElementById("custom-cursor");
+      const circle = document.getElementById("cursor-circle");
+
+      let mouseX = -100;
+      let mouseY = -100;
+      let circleX = -100;
+      let circleY = -100;
+
+      document.addEventListener("mousemove", function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
+      });
+
+      function animate() {
+        circleX += (mouseX - circleX) * 0.12;
+        circleY += (mouseY - circleY) * 0.12;
+        circle.style.left = circleX + "px";
+        circle.style.top = circleY + "px";
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      document.addEventListener("mousedown", function () {
+        circle.style.width = "27px";
+        circle.style.height = "27px";
+      });
+
+      document.addEventListener("mouseup", function () {
+        circle.style.width = "35px";
+        circle.style.height = "35px";
+      });
+
+      document.addEventListener("mouseleave", function () {
+        dot.style.opacity = "0";
+        circle.style.opacity = "0";
+      });
+
+      document.addEventListener("mouseenter", function () {
+        dot.style.opacity = "1";
+        circle.style.opacity = "1";
+      });
+    })();
+  </script>
+</body>
+</html>

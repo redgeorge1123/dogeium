@@ -1,0 +1,139 @@
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L7856P3VNT');
+</script>
+<!doctype html>
+<html>
+<head>
+
+    <base href="https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@8c0add17e99e4cbe9eaf6bb9e7487c3ad08c915a/attack-hole/">
+    <link rel="stylesheet" type="text/css" href="styles.css" nonce="gVo7eYSnevGWGNC1xGCx9Q">
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+      * {
+        cursor: none !important;
+      }
+
+      #custom-cursor {
+        position: fixed;
+        width: 9px;
+        height: 9px;
+        background: #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483647;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+      }
+
+      #cursor-circle {
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease;
+        box-shadow: 0 0 10px #ffeb00;
+      }
+    </style>
+
+    <script nonce="gVo7eYSnevGWGNC1xGCx9Q">
+      if (!window.ytgame) {
+        window.ytgame = {
+          SDK_VERSION: "standalone",
+          IN_PLAYABLES_ENV: false,
+          SdkError: function (t) { this.errorType = t; this.message = ""; },
+          SdkErrorType: { UNDEFINED: 0, GAMEAPI_UNDEFINED: 1 },
+          game: {
+            firstFrameReady: function () {},
+            gameReady: function () {},
+            loadData: function () { return Promise.resolve(localStorage.getItem("attack-hole-save") || ""); },
+            saveData: function (data) { localStorage.setItem("attack-hole-save", data); return Promise.resolve(); }
+          },
+          engagement: { sendScore: function () { return Promise.resolve(); } },
+          ads: {
+            requestAd: function () { return Promise.resolve(3); },
+            requestInterstitialAd: function () { return Promise.resolve(); },
+            AdResult: { UNKNOWN: 0, SHOWED: 1, REJECTED: 3, DISMISSED: 2 }
+          },
+          health: { logError: function () {}, logWarning: function () {} },
+          system: {
+            getLanguage: function () { return Promise.resolve("en"); },
+            isAudioEnabled: function () { return true; },
+            onAudioEnabledChange: function () { return function () {}; },
+            onPause: function () { return function () {}; },
+            onResume: function () { return function () {}; }
+          }
+        };
+        window.ytgamehelper = { myConsoleLog: function () {} };
+      }
+    </script>
+
+    <script src="playcanvas-stable.min.js" nonce="gVo7eYSnevGWGNC1xGCx9Q"></script>
+    <script src="__settings__.js" nonce="gVo7eYSnevGWGNC1xGCx9Q"></script>
+</head>
+
+<body>
+    <script src="__start__.js" nonce="gVo7eYSnevGWGNC1xGCx9Q"></script>
+    <script src="__loading__.js" nonce="gVo7eYSnevGWGNC1xGCx9Q"></script>
+
+    <div id="cursor-circle"></div>
+    <div id="custom-cursor"></div>
+
+    <script>
+      (function () {
+        const dot = document.getElementById("custom-cursor");
+        const circle = document.getElementById("cursor-circle");
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+          requestAnimationFrame(animate);
+        }
+        animate();
+
+        document.addEventListener("mousedown", function () {
+          circle.style.width = "27px";
+          circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+          circle.style.width = "35px";
+          circle.style.height = "35px";
+        });
+
+        document.addEventListener("mouseleave", function () {
+          dot.style.opacity = "0";
+          circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+          dot.style.opacity = "1";
+          circle.style.opacity = "1";
+        });
+      })();
+    </script>
+</body>
+</html>

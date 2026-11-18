@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L7856P3VNT');
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Rabbibo/moto@35b09901c725d990145f7b305cbcb42ddcee4782/assets/css/app.css" type="text/css" />
+
+    <style>
+        * {
+            cursor: none !important;
+        }
+
+        #custom-cursor {
+            position: fixed;
+            width: 9px;
+            height: 9px;
+            background: #ffeb00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2147483647;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+        }
+
+        #cursor-circle {
+            position: fixed;
+            width: 35px;
+            height: 35px;
+            border: 2px solid #ffeb00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2147483646;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s ease, height 0.15s ease;
+            box-shadow: 0 0 10px #ffeb00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content"></div>
+    <div id="orientation"></div>
+    <div id="loader">Loading ...</div>
+
+    <script type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/nape.min.js">
+        var nape = "nape.min.js";
+    </script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/jquery-3.1.1.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/easeljs-0.8.2.combined.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Stypical/lacklack@0959ed15fc96078cbb053e4e3c259a62b3e9e296/motox3m/assets/lib/bluebird.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bobydob/JSEngine@0e96212fb7b2e7aa0a310d3ebe3a8ab01a114b4b/build/m3m/m3m.min.js"></script>
+
+    <!-- Custom cursor -->
+    <div id="cursor-circle"></div>
+    <div id="custom-cursor"></div>
+
+    <script>
+    (function () {
+        const dot = document.getElementById("custom-cursor");
+        const circle = document.getElementById("cursor-circle");
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            dot.style.left = mouseX + "px";
+            dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+            circleX += (mouseX - circleX) * 0.12;
+            circleY += (mouseY - circleY) * 0.12;
+
+            circle.style.left = circleX + "px";
+            circle.style.top = circleY + "px";
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        document.addEventListener("mousedown", function () {
+            circle.style.width = "27px";
+            circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+            circle.style.width = "35px";
+            circle.style.height = "35px";
+        });
+
+        document.addEventListener("mouseleave", function () {
+            dot.style.opacity = "0";
+            circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+            dot.style.opacity = "1";
+            circle.style.opacity = "1";
+        });
+    })();
+    </script>
+</body>
+
+</html>
