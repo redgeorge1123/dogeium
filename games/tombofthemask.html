@@ -1,18 +1,129 @@
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-L7856P3VNT');
-</script><base href="https://cdn.jsdelivr.net/gh/rcmcom/tombofthemask@main/"><link href="style.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L7856P3VNT');
+  </script>
 
-    
-    
-</head><body dir="ltr"><script src="UnityProgress.js"></script><script src="d5fuh3d/UnityLoader.js"></script><script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "d5fuh3d/totm.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
-    </script><div class="webgl-content">
-        <div id="gameContainer" style="width: 100%; height: 100%; margin: auto"></div>
-        </div>
-<script src="addc4348-16c2-4645-9dff-f99b962e39ef_scr.js"></script>
+  <base href="https://cdn.jsdelivr.net/gh/rcmcom/tombofthemask@main/">
+  <link href="style.css" rel="stylesheet">
 
+  <style>
+    * {
+      cursor: none !important;
+    }
+
+    #custom-cursor {
+      position: fixed;
+      width: 9px;
+      height: 9px;
+      background: #ffeb00;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2147483647;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+    }
+
+    #cursor-circle {
+      position: fixed;
+      width: 35px;
+      height: 35px;
+      border: 2px solid #ffeb00;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2147483646;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease;
+      box-shadow: 0 0 10px #ffeb00;
+    }
+  </style>
+</head>
+
+<body dir="ltr">
+  <script src="UnityProgress.js"></script>
+  <script src="d5fuh3d/UnityLoader.js"></script>
+
+  <script>
+    var gameInstance = UnityLoader.instantiate(
+      "gameContainer",
+      "d5fuh3d/totm.json",
+      {
+        onProgress: UnityProgress,
+        Module: {
+          onRuntimeInitialized: function() {
+            UnityProgress(gameInstance, "complete");
+          }
+        }
+      }
+    );
+  </script>
+
+  <div class="webgl-content">
+    <div id="gameContainer" style="width: 100%; height: 100%; margin: auto"></div>
+  </div>
+
+  <script src="addc4348-16c2-4645-9dff-f99b962e39ef_scr.js"></script>
+
+  <!-- Custom cursor -->
+  <div id="cursor-circle"></div>
+  <div id="custom-cursor"></div>
+
+  <script>
+    (function () {
+      const dot = document.getElementById("custom-cursor");
+      const circle = document.getElementById("cursor-circle");
+
+      let mouseX = -100;
+      let mouseY = -100;
+      let circleX = -100;
+      let circleY = -100;
+
+      document.addEventListener("mousemove", function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
+      });
+
+      function animate() {
+        circleX += (mouseX - circleX) * 0.12;
+        circleY += (mouseY - circleY) * 0.12;
+
+        circle.style.left = circleX + "px";
+        circle.style.top = circleY + "px";
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      document.addEventListener("mousedown", function () {
+        circle.style.width = "27px";
+        circle.style.height = "27px";
+      });
+
+      document.addEventListener("mouseup", function () {
+        circle.style.width = "35px";
+        circle.style.height = "35px";
+      });
+
+      document.addEventListener("mouseleave", function () {
+        dot.style.opacity = "0";
+        circle.style.opacity = "0";
+      });
+
+      document.addEventListener("mouseenter", function () {
+        dot.style.opacity = "1";
+        circle.style.opacity = "1";
+      });
+    })();
+  </script>
+</body>
+</html>
