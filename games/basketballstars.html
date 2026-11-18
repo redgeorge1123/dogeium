@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<!-- Ultimate Game Stash file-->
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/css/app.css" type="text/css" />
+
+    <style>
+        * {
+            cursor: none !important;
+        }
+
+        #custom-cursor {
+            position: fixed;
+            width: 9px;
+            height: 9px;
+            background: #ffeb00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2147483647;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+        }
+
+        #cursor-circle {
+            position: fixed;
+            width: 35px;
+            height: 35px;
+            border: 2px solid #ffeb00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2147483646;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s ease, height 0.15s ease;
+            box-shadow: 0 0 10px #ffeb00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content"></div>
+    <div id="orientation"></div>
+    <div id="loader">Loading ...</div>
+
+    <script type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/nape.min.js">
+        var nape ="nape.min.js";
+    </script>
+
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/easeljs-0.8.2.combined.js"></script>
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/bluebird.min.js"></script>
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/phaser.min.js"></script>
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/phaser-cachebuster.min.js"></script>
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/phaser-super-storage.min.js"></script>
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/assets/lib/dragonBones.min.js"></script>
+
+    <script type="text/javascript">
+        var notIE11 = (typeof (Event) === 'function');
+
+        window.SDK_OPTIONS = {
+            gameId: "ycc9yyyfyazoiibce061j1b7jx91tt8a",
+            onEvent: function (event) {
+                switch (event.name) {
+                    case "SDK_GAME_START":
+                        var event;
+                        if (notIE11) {
+                            event = new Event("SDK_GAME_START");
+                        } else {
+                            event = document.createEvent('Event');
+                            event.initEvent('SDK_GAME_START', true, true);
+                        }
+                        document.getElementById("content").dispatchEvent(event);
+                        break;
+
+                    case "SDK_GAME_PAUSE":
+                        var event;
+                        if (notIE11) {
+                            event = new Event("SDK_GAME_PAUSE");
+                        } else {
+                            event = document.createEvent('Event');
+                            event.initEvent('SDK_GAME_PAUSE', true, true);
+                        }
+                        document.getElementById("content").dispatchEvent(event);
+                        break;
+
+                    case "SDK_READY":
+                        console.log("SDK_READY");
+                        break;
+                }
+            },
+        };
+
+        (function (a, b, c) {
+            var d = a.getElementsByTagName(b)[0];
+            a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://cdn.jsdelivr.net/gh/st39/sdk@main/sdk.js", d.parentNode.insertBefore(a, d))
+        })(document, "script", "gamemonetize-sdk");
+    </script>
+
+    <script type="text/javascript" src="https://36043189-480959866522093217.preview.editmysite.com/uploads/b/139890129-743801889220072865/files/bs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/st39/sdk@main/api.js"></script>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-circle"></div>
+    <div id="custom-cursor"></div>
+
+    <script>
+        (function () {
+            const dot = document.getElementById("custom-cursor");
+            const circle = document.getElementById("cursor-circle");
+
+            let mouseX = -100;
+            let mouseY = -100;
+            let circleX = -100;
+            let circleY = -100;
+
+            document.addEventListener("mousemove", function (e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                dot.style.left = mouseX + "px";
+                dot.style.top = mouseY + "px";
+            });
+
+            function animate() {
+                circleX += (mouseX - circleX) * 0.12;
+                circleY += (mouseY - circleY) * 0.12;
+
+                circle.style.left = circleX + "px";
+                circle.style.top = circleY + "px";
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            document.addEventListener("mousedown", function () {
+                circle.style.width = "27px";
+                circle.style.height = "27px";
+            });
+
+            document.addEventListener("mouseup", function () {
+                circle.style.width = "35px";
+                circle.style.height = "35px";
+            });
+
+            document.addEventListener("mouseleave", function () {
+                dot.style.opacity = "0";
+                circle.style.opacity = "0";
+            });
+
+            document.addEventListener("mouseenter", function () {
+                dot.style.opacity = "1";
+                circle.style.opacity = "1";
+            });
+        })();
+    </script>
+</body>
+
+</html>
