@@ -122,6 +122,27 @@ body {
     color: #f5bd42;
 }
 
+/* GAME COUNTER */
+.game-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    background: #1b1b23;
+    border: 1px solid #f5bd42;
+    border-radius: 10px;
+    color: #f5bd42;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 12px #f5bd4225;
+}
+
+#gameCount {
+    color: white;
+    font-size: 19px;
+}
+
 /* GAME SEARCH BAR */
 .game-search-container {
     width: 100%;
@@ -375,6 +396,12 @@ body {
 
         <h1 class="page-title">GAMES</h1>
 
+        <!-- GAME COUNTER -->
+        <div class="game-counter">
+            🎮 Total Games:
+            <span id="gameCount">0</span>
+        </div>
+
         <!-- SEARCH BAR -->
         <div class="game-search-container">
             <span class="search-icon">⌕</span>
@@ -392,261 +419,167 @@ body {
         <div class="games-grid" id="gamesGrid">
 
             <div class="game-card" onclick="openGame('/games/ovo14/index.html')">
-                <img class="game-image"
-                src="/images/ovo.png"
-                alt="OvO 1.4">
-                <div class="game-info">
-                    <h3>OvO 1.4</h3>
-                </div>
+                <img class="game-image" src="/images/ovo.png" alt="OvO 1.4">
+                <div class="game-info"><h3>OvO 1.4</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/ovo.html')">
-                <img class="game-image"
-                src="/images/ovo.png"
-                alt="OvO">
-                <div class="game-info">
-                    <h3>OvO</h3>
-                </div>
+                <img class="game-image" src="/images/ovo.png" alt="OvO">
+                <div class="game-info"><h3>OvO</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/ovo2.html')">
-                <img class="game-image"
-                src="/images/ovo2.png"
-                alt="OvO 2">
-                <div class="game-info">
-                    <h3>OvO 2</h3>
-                </div>
+                <img class="game-image" src="/images/ovo2.png" alt="OvO 2">
+                <div class="game-info"><h3>OvO 2</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/ovo3.html')">
-                <img class="game-image"
-                src="/images/ovo3.png"
-                alt="OvO 3 Dimentions">
-                <div class="game-info">
-                    <h3>OvO 3 Dimentions</h3>
-                </div>
+                <img class="game-image" src="/images/ovo3.png" alt="OvO 3 Dimentions">
+                <div class="game-info"><h3>OvO 3 Dimentions</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/slope/index.html')">
-                <img class="game-image"
-                src="/images/slope.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Slope</h3>
-                </div>
+                <img class="game-image" src="/images/slope.png" alt="Slope">
+                <div class="game-info"><h3>Slope</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/fnfvshuggy/index.html')">
-                <img class="game-image"
-                src="/images/fnfvshuggy.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>FNF VS HUGGY</h3>
-                </div>
+                <img class="game-image" src="/images/fnfvshuggy.png" alt="FNF VS HUGGY">
+                <div class="game-info"><h3>FNF VS HUGGY</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/fnfvscatnap/index.html')">
-                <img class="game-image"
-                src="/images/fnfvscatnap.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>FNF VS CATNAP</h3>
-                </div>
+                <img class="game-image" src="/images/fnfvscatnap.png" alt="FNF VS CATNAP">
+                <div class="game-info"><h3>FNF VS CATNAP</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/minecraft.html')">
-                <img class="game-image"
-                src="/images/minecraft.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Minecraft</h3>
-                </div>
+                <img class="game-image" src="/images/minecraft.png" alt="Minecraft">
+                <div class="game-info"><h3>Minecraft</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/driftboss.html')">
-                <img class="game-image"
-                src="/images/driftboss.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Drift Boss</h3>
-                </div>
+                <img class="game-image" src="/images/driftboss.png" alt="Drift Boss">
+                <div class="game-info"><h3>Drift Boss</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/fnf.html')">
-                <img class="game-image"
-                src="/images/fnf.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Friday Night Funkin</h3>
-                </div>
+                <img class="game-image" src="/images/fnf.png" alt="Friday Night Funkin">
+                <div class="game-info"><h3>Friday Night Funkin</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/cookieclicker.html')">
-                <img class="game-image"
-                src="/images/cookieclicker.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Cookie Clicker</h3>
-                </div>
+                <img class="game-image" src="/images/cookieclicker.png" alt="Cookie Clicker">
+                <div class="game-info"><h3>Cookie Clicker</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/gd/index.html')">
-                <img class="game-image"
-                src="/images/gd.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Geometry Dash</h3>
-                </div>
+                <img class="game-image" src="/images/gd.png" alt="Geometry Dash">
+                <div class="game-info"><h3>Geometry Dash</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/gdlite.html')">
-                <img class="game-image"
-                src="/images/gdlite.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Geometry Dash Lite</h3>
-                </div>
+                <img class="game-image" src="/images/gdlite.png" alt="Geometry Dash Lite">
+                <div class="game-info"><h3>Geometry Dash Lite</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/2048.html')">
-                <img class="game-image"
-                src="/images/2048.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>2048</h3>
-                </div>
+                <img class="game-image" src="/images/2048.png" alt="2048">
+                <div class="game-info"><h3>2048</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/amaze.html')">
-                <img class="game-image"
-                src="/images/amaze.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>amaze</h3>
-                </div>
+                <img class="game-image" src="/images/amaze.png" alt="Amaze">
+                <div class="game-info"><h3>amaze</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/badtimesim.html')">
-                <img class="game-image"
-                src="/images/badtimesim.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Bad Time Simulator</h3>
-                </div>
+                <img class="game-image" src="/images/badtimesim.png" alt="Bad Time Simulator">
+                <div class="game-info"><h3>Bad Time Simulator</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/schoolboy.html')">
-                <img class="game-image"
-                src="/images/schoolboy.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Schoolboy Runaway</h3>
-                </div>
+                <img class="game-image" src="/images/schoolboy.png" alt="Schoolboy Runaway">
+                <div class="game-info"><h3>Schoolboy Runaway</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/choppyorc.html')">
-                <img class="game-image"
-                src="/images/choppyorc.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Choppy Orc</h3>
-                </div>
+                <img class="game-image" src="/images/choppyorc.png" alt="Choppy Orc">
+                <div class="game-info"><h3>Choppy Orc</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/baldi.html')">
-                <img class="game-image"
-                src="/images/baldi.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Baldis Basics Classic</h3>
-                </div>
+                <img class="game-image" src="/images/baldi.png" alt="Baldis Basics Classic">
+                <div class="game-info"><h3>Baldis Basics Classic</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/baldiremastered.html')">
-                <img class="game-image"
-                src="/images/baldiremastered.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Baldis Basics Classic Remastered</h3>
-                </div>
+                <img class="game-image" src="/images/baldiremastered.png" alt="Baldis Basics Classic Remastered">
+                <div class="game-info"><h3>Baldis Basics Classic Remastered</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/baldiplus.html')">
-                <img class="game-image"
-                src="/images/baldiplus.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Baldis Basics Plus</h3>
-                </div>
+                <img class="game-image" src="/images/baldiplus.png" alt="Baldis Basics Plus">
+                <div class="game-info"><h3>Baldis Basics Plus</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/UvuvwevwevweOnyetenvewveUgwemubwemOssas.html')">
-                <img class="game-image"
-                src="/images/UvuvwevwevweOnyetenvewveUgwemubwemOssas.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>UvuvwevwevweOnyetenvewveUgwemubwemOssas</h3>
-                </div>
+                <img class="game-image" src="/images/UvuvwevwevweOnyetenvewveUgwemubwemOssas.png" alt="Uvuvwevwevwe">
+                <div class="game-info"><h3>UvuvwevwevweOnyetenvewveUgwemubwemOssas</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/sprunki.html')">
-                <img class="game-image"
-                src="/images/sprunki.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Sprunki</h3>
-                </div>
+                <img class="game-image" src="/images/sprunki.png" alt="Sprunki">
+                <div class="game-info"><h3>Sprunki</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/sliceitall.html')">
-                <img class="game-image"
-                src="/images/sliceitall.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Slice It All</h3>
-                </div>
+                <img class="game-image" src="/images/sliceitall.png" alt="Slice It All">
+                <div class="game-info"><h3>Slice It All</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/stackydash.html')">
-                <img class="game-image"
-                src="/images/stackydash.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Stacky Dash</h3>
-                </div>
+                <img class="game-image" src="/images/stackydash.png" alt="Stacky Dash">
+                <div class="game-info"><h3>Stacky Dash</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/spacewaves.html')">
-                <img class="game-image"
-                src="/images/spacewaves.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Space Waves</h3>
-                </div>
+                <img class="game-image" src="/images/spacewaves.png" alt="Space Waves">
+                <div class="game-info"><h3>Space Waves</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/spiralroll.html')">
-                <img class="game-image"
-                src="/images/spiralroll.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>Spiral Roll</h3>
-                </div>
+                <img class="game-image" src="/images/spiralroll.png" alt="Spiral Roll">
+                <div class="game-info"><h3>Spiral Roll</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/1v1lol.html')">
-                <img class="game-image"
-                src="/images/1v1lol.png"
-                alt="Slope">
-                <div class="game-info">
-                    <h3>1v1.LoL</h3>
-                </div>
+                <img class="game-image" src="/images/1v1lol.png" alt="1v1.LoL">
+                <div class="game-info"><h3>1v1.LoL</h3></div>
             </div>
 
+            <div class="game-card" onclick="openGame('/games/tombofthemask.html')">
+                <img class="game-image" src="/images/tombofthemask.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Tomb Of The Mask</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/hardestgame.html')">
+                <img class="game-image" src="/images/hardestgame.png" alt="1v1.LoL">
+                <div class="game-info"><h3>The Worlds Hardest Game</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/hardestgame3.html')">
+                <img class="game-image" src="/images/hardestgame3.png" alt="1v1.LoL">
+                <div class="game-info"><h3>The Worlds Hardest Game 4</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/hardestgame4.html')">
+                <img class="game-image" src="/images/hardestgame4.png" alt="1v1.LoL">
+                <div class="game-info"><h3>The Worlds Hardest Game 4</h3></div>
+            </div>
 
         </div>
 
-        <!-- NO RESULTS MESSAGE -->
         <div class="no-results" id="noResults">
             No games found. Try another search!
         </div>
@@ -663,26 +596,13 @@ body {
             <h2>Customize Your Tab</h2>
 
             <label>Tab Title</label>
-
-            <input
-                id="tabTitle"
-                placeholder="Enter a new tab title"
-            >
+            <input id="tabTitle" placeholder="Enter a new tab title">
 
             <label>Favicon Image URL</label>
+            <input id="tabIcon" placeholder="Leave empty to remove favicon">
 
-            <input
-                id="tabIcon"
-                placeholder="Leave empty to remove favicon"
-            >
-
-            <button class="cloak-button" onclick="applyCloak()">
-                Apply Cloak
-            </button>
-
-            <button class="reset-button" onclick="resetCloak()">
-                Reset
-            </button>
+            <button class="cloak-button" onclick="applyCloak()">Apply Cloak</button>
+            <button class="reset-button" onclick="resetCloak()">Reset</button>
 
             <p class="note">
                 Change your browser tab title and favicon.
@@ -703,7 +623,6 @@ body {
 
 // PAGE NAVIGATION
 function showPage(page, button) {
-
     document.querySelectorAll('.page').forEach(p => {
         p.classList.remove('active');
     });
@@ -717,9 +636,14 @@ function showPage(page, button) {
     button.classList.add('active');
 }
 
+// AUTOMATIC GAME COUNTER
+function updateGameCount() {
+    const totalGames = document.querySelectorAll('#gamesGrid .game-card').length;
+    document.getElementById('gameCount').textContent = totalGames;
+}
+
 // SEARCH GAMES
 function searchGames() {
-
     const searchInput = document
         .getElementById('gameSearch')
         .value.toLowerCase()
@@ -729,7 +653,6 @@ function searchGames() {
     let visibleGames = 0;
 
     gameCards.forEach(card => {
-
         const gameName = card
             .querySelector('h3')
             .textContent
@@ -741,7 +664,6 @@ function searchGames() {
         } else {
             card.style.display = 'none';
         }
-
     });
 
     document.getElementById('noResults').style.display =
@@ -755,7 +677,6 @@ function openGame(url) {
 
 // APPLY CLOAK
 function applyCloak() {
-
     const title = document.getElementById('tabTitle').value.trim();
     const icon = document.getElementById('tabIcon').value.trim();
 
@@ -764,13 +685,10 @@ function applyCloak() {
     }
 
     if (!icon) {
-
         document.querySelectorAll("link[rel~='icon']").forEach(link => {
             link.remove();
         });
-
     } else {
-
         let favicon = document.querySelector("link[rel~='icon']");
 
         if (!favicon) {
@@ -785,7 +703,6 @@ function applyCloak() {
 
 // RESET CLOAK
 function resetCloak() {
-
     document.title = 'DOGEIUM';
 
     document.querySelectorAll("link[rel~='icon']").forEach(link => {
@@ -802,22 +719,18 @@ const cursorCircle = document.getElementById("cursorCircle");
 
 let mouseX = 0;
 let mouseY = 0;
-
 let circleX = 0;
 let circleY = 0;
 
 document.addEventListener("mousemove", function(e) {
-
     mouseX = e.clientX;
     mouseY = e.clientY;
 
     cursorDot.style.left = mouseX + "px";
     cursorDot.style.top = mouseY + "px";
-
 });
 
 function animateCursor() {
-
     circleX += (mouseX - circleX) * 0.12;
     circleY += (mouseY - circleY) * 0.12;
 
@@ -828,6 +741,9 @@ function animateCursor() {
 }
 
 animateCursor();
+
+// INITIALIZE GAME COUNTER
+updateGameCount();
 
 </script>
 
