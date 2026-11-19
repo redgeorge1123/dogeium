@@ -313,6 +313,183 @@ body {
     transition: width 0.2s, height 0.2s;
 }
 
+
+/* DOGEIUM BROWSER */
+.browser-shell {
+    background: #17171e;
+    border: 1px solid #30303b;
+    border-radius: 14px;
+    overflow: hidden;
+    min-height: calc(100vh - 60px);
+}
+.browser-tabs {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px;
+    background: #111116;
+    border-bottom: 1px solid #30303b;
+    overflow-x: auto;
+}
+.browser-tab {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 190px;
+    padding: 10px 13px;
+    border: 1px solid #30303b;
+    border-radius: 8px;
+    color: #aaa;
+    background: #1b1b23;
+    white-space: nowrap;
+}
+.browser-tab.active {
+    color: #f5bd42;
+    border-color: #f5bd42;
+    background: #24232a;
+}
+.browser-tab-close {
+    color: #888;
+    border: 0;
+    background: transparent;
+    font-size: 17px;
+}
+.browser-new-tab {
+    min-width: 38px;
+    height: 38px;
+    border: 1px solid #383842;
+    border-radius: 8px;
+    color: #f5bd42;
+    background: #1b1b23;
+    font-size: 22px;
+}
+.browser-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background: #1b1b23;
+    border-bottom: 1px solid #30303b;
+}
+.browser-toolbar button, .browser-add-button {
+    border: 1px solid #383842;
+    border-radius: 8px;
+    padding: 10px 13px;
+    color: #f5bd42;
+    background: #101014;
+}
+.browser-address {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 14px;
+    border: 1px solid #383842;
+    border-radius: 8px;
+    outline: none;
+    color: white;
+    background: #101014;
+    font-size: 14px;
+}
+.browser-address:focus, .bookmark-input:focus {
+    border-color: #f5bd42;
+}
+.browser-view {
+    min-height: 600px;
+    background: #101014;
+}
+.browser-start {
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 20px;
+}
+.browser-start h2 {
+    color: #f5bd42;
+    font-size: clamp(48px, 8vw, 82px);
+    letter-spacing: 7px;
+    text-shadow: 0 0 25px #f5bd4260;
+    margin-bottom: 28px;
+}
+.browser-search {
+    width: min(620px, 100%);
+    display: flex;
+    gap: 8px;
+}
+.browser-search input, .bookmark-input {
+    min-width: 0;
+    flex: 1;
+    padding: 15px 17px;
+    border: 1px solid #383842;
+    border-radius: 10px;
+    outline: none;
+    color: white;
+    background: #1b1b23;
+    font-size: 15px;
+}
+.browser-search button {
+    padding: 0 20px;
+    border: 0;
+    border-radius: 10px;
+    color: #101014;
+    background: #f5bd42;
+    font-weight: bold;
+}
+.browser-bookmarks {
+    width: min(700px, 100%);
+    margin-top: 38px;
+}
+.browser-bookmarks h3 {
+    color: #aaa;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+.bookmark-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.bookmark-item {
+    min-width: 105px;
+    padding: 15px 18px;
+    border: 1px solid #30303b;
+    border-radius: 10px;
+    color: white;
+    background: #1b1b23;
+    text-align: center;
+}
+.bookmark-item:hover {
+    border-color: #f5bd42;
+    color: #f5bd42;
+}
+.bookmark-item .bookmark-icon {
+    display: block;
+    font-size: 23px;
+    margin-bottom: 7px;
+}
+.bookmark-add {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+.bookmark-add .bookmark-input {
+    flex: 1 1 160px;
+    padding: 11px 12px;
+}
+.browser-frame {
+    width: 100%;
+    height: 600px;
+    border: 0;
+    background: white;
+}
+@media(max-width: 650px) {
+    .browser-toolbar { flex-wrap: wrap; }
+    .browser-address { flex-basis: 100%; order: -1; }
+    .browser-view, .browser-start { min-height: 520px; }
+    .browser-frame { height: 520px; }
+}
+
 /* MOBILE */
 @media(max-width: 650px) {
     .sidebar {
@@ -376,6 +553,10 @@ body {
 
     <button class="nav-button" onclick="showPage('cloak',this)">
         <span>👁️</span> Cloak
+    </button>
+
+    <button class="nav-button" onclick="showPage('browser',this); renderBrowser()">
+        <span>🌐</span> Browser
     </button>
 
 </div>
@@ -698,6 +879,76 @@ body {
                 <div class="game-info"><h3>Trees Hate You</h3></div>
             </div>
 
+            <div class="game-card" onclick="openGame('/games/vex.html')">
+                <img class="game-image" src="/images/vex.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex2.html')">
+                <img class="game-image" src="/images/vex2.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 2</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex3.html')">
+                <img class="game-image" src="/images/vex3.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 3</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex.html')">
+                <img class="game-image" src="/images/vex3xmas.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 3 XMAS</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex4.html')">
+                <img class="game-image" src="/images/vex4.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 4</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex5.html')">
+                <img class="game-image" src="/images/vex5.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 5</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex6.html')">
+                <img class="game-image" src="/images/vex6.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 6</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex7.html')">
+                <img class="game-image" src="/images/vex7.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 7</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vex8.html')">
+                <img class="game-image" src="/images/vex8.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex 8</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vexchall.html')">
+                <img class="game-image" src="/images/vexchall.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex Challenge</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vexx3m.html')">
+                <img class="game-image" src="/images/vexx3m.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex X3M</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/vexx2m.html')">
+                <img class="game-image" src="/images/vexx2m.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Vex X3M 2</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/stickmanhook.html')">
+                <img class="game-image" src="/images/stickmanhook.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Stickman Hook</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/stickmanfight.html')">
+                <img class="game-image" src="/images/stickmanfight.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Stickman Fight Ragdoll</h3></div>
+            </div>
+
         </div>
 
         <div class="no-results" id="noResults">
@@ -733,6 +984,21 @@ body {
 
     </section>
 
+    <!-- BROWSER PAGE -->
+    <section class="page" id="browser">
+        <h1 class="page-title">DOGEIUM BROWSER</h1>
+        <div class="browser-shell">
+            <div class="browser-tabs" id="browserTabs"></div>
+            <div class="browser-toolbar">
+                <button onclick="browserBack()" title="Back">←</button>
+                <button onclick="browserHome()" title="Home">⌂</button>
+                <input class="browser-address" id="browserAddress" placeholder="Search Google or enter a website address" onkeydown="if(event.key==='Enter') browserGo()">
+                <button onclick="browserGo()">Go</button>
+            </div>
+            <div class="browser-view" id="browserView"></div>
+        </div>
+    </section>
+
 </div>
 
 <!-- CUSTOM CURSOR -->
@@ -763,13 +1029,13 @@ function updateGameCount() {
 }
 
 // SEARCH GAMES
-function searchGames() {
-    const searchInput = document
-        .getElementById('gameSearch')
-        .value.toLowerCase()
-        .trim();
+function searchGames(event) {
+    const section = event && event.target.closest('#games')
+        ? event.target.closest('#games')
+        : document.getElementById('games');
+    const searchInput = section.querySelector('#gameSearch').value.toLowerCase().trim();
 
-    const gameCards = document.querySelectorAll('.game-card');
+    const gameCards = section.querySelectorAll('.game-card');
     let visibleGames = 0;
 
     gameCards.forEach(card => {
@@ -786,13 +1052,200 @@ function searchGames() {
         }
     });
 
-    document.getElementById('noResults').style.display =
+    section.querySelector('#noResults').style.display =
         visibleGames === 0 ? 'block' : 'none';
 }
 
 // OPEN GAMES
 function openGame(url) {
     window.open(url, '_blank');
+}
+
+
+// DOGEIUM BROWSER: in-page tabs and saved bookmarks
+let browserTabs = [{ id: 1, title: "New Tab", url: "" }];
+let activeBrowserTab = 1;
+let nextBrowserTabId = 2;
+let browserBookmarks = [
+    { name: "Games", url: "dogeium://games", icon: "🎮" }
+];
+
+try {
+    const savedBookmarks = JSON.parse(localStorage.getItem("dogeiumBookmarks") || "null");
+    if (Array.isArray(savedBookmarks)) browserBookmarks = savedBookmarks;
+} catch (e) {}
+
+function saveBookmarks() {
+    try { localStorage.setItem("dogeiumBookmarks", JSON.stringify(browserBookmarks)); } catch (e) {}
+}
+
+function escapeBrowserText(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[char]);
+}
+
+function currentBrowserTab() {
+    return browserTabs.find(tab => tab.id === activeBrowserTab);
+}
+
+function renderBrowser() {
+    const tabs = document.getElementById("browserTabs");
+    const view = document.getElementById("browserView");
+    const address = document.getElementById("browserAddress");
+    if (!tabs || !view || !address) return;
+
+    tabs.innerHTML = browserTabs.map(tab => `
+        <button class="browser-tab ${tab.id === activeBrowserTab ? "active" : ""}" onclick="switchBrowserTab(${tab.id})">
+            <span>${escapeBrowserText(tab.title)}</span>
+            <span class="browser-tab-close" onclick="event.stopPropagation(); closeBrowserTab(${tab.id})">×</span>
+        </button>
+    `).join("") + `<button class="browser-new-tab" onclick="newBrowserTab()" title="New tab">+</button>`;
+
+    const tab = currentBrowserTab();
+    if (!tab) return;
+    address.value = tab.url === "dogeium://games" ? "DOGEIUM Games" : (tab.url || "");
+
+    if (tab.url === "dogeium://games") {
+        const gamesPage = document.getElementById("games").cloneNode(true);
+        gamesPage.classList.add("active", "browser-games-content");
+        gamesPage.style.display = "block";
+        view.innerHTML = "";
+        view.appendChild(gamesPage);
+        return;
+    }
+
+    if (tab.url) {
+        view.innerHTML = `<iframe class="browser-frame" id="browserFrame" src="${escapeBrowserText(tab.url)}" referrerpolicy="no-referrer"></iframe>`;
+        return;
+    }
+
+    view.innerHTML = `
+        <div class="browser-start">
+            <h2>DOGEIUM</h2>
+            <form class="browser-search" onsubmit="browserSearch(event)">
+                <input id="startSearch" type="text" placeholder="Search the web..." autocomplete="off">
+                <button type="submit">Search</button>
+            </form>
+            <div class="browser-bookmarks">
+                <h3>BOOKMARKS</h3>
+                <div class="bookmark-list" id="bookmarkList"></div>
+                <form class="bookmark-add" onsubmit="addBrowserBookmark(event)">
+                    <input class="bookmark-input" id="bookmarkName" placeholder="Bookmark name" maxlength="30" required>
+                    <input class="bookmark-input" id="bookmarkUrl" placeholder="Website URL" required>
+                    <button class="browser-add-button" type="submit">＋ Add Bookmark</button>
+                </form>
+            </div>
+        </div>`;
+
+    const list = document.getElementById("bookmarkList");
+    list.innerHTML = browserBookmarks.map((bookmark, index) => `
+        <div class="bookmark-item" onclick="openBrowserBookmark(${index})">
+            <span class="bookmark-icon">${escapeBrowserText(bookmark.icon || "🔖")}</span>
+            ${escapeBrowserText(bookmark.name)}
+        </div>
+    `).join("");
+}
+
+function newBrowserTab() {
+    const tab = { id: nextBrowserTabId++, title: "New Tab", url: "" };
+    browserTabs.push(tab);
+    activeBrowserTab = tab.id;
+    renderBrowser();
+}
+
+function switchBrowserTab(id) {
+    activeBrowserTab = id;
+    renderBrowser();
+}
+
+function closeBrowserTab(id) {
+    if (browserTabs.length === 1) {
+        browserTabs[0] = { id: nextBrowserTabId++, title: "New Tab", url: "" };
+        activeBrowserTab = browserTabs[0].id;
+    } else {
+        browserTabs = browserTabs.filter(tab => tab.id !== id);
+        if (activeBrowserTab === id) activeBrowserTab = browserTabs[browserTabs.length - 1].id;
+    }
+    renderBrowser();
+}
+
+function browserHome() {
+    const tab = currentBrowserTab();
+    if (!tab) return;
+    tab.url = "";
+    tab.title = "New Tab";
+    renderBrowser();
+}
+
+function normalizeBrowserUrl(value) {
+    let input = value.trim();
+    if (!input) return "";
+    if (/^(https?:\/\/)/i.test(input)) return input;
+    if (/^localhost(:\d+)?([/]|$)/i.test(input) || /^[\w.-]+\.[a-z]{2,}([/:?#]|$)/i.test(input)) {
+        return "https://" + input;
+    }
+    return "https://www.google.com/search?q=" + encodeURIComponent(input);
+}
+
+function browserGo() {
+    const address = document.getElementById("browserAddress");
+    if (address) navigateBrowser(normalizeBrowserUrl(address.value));
+}
+
+function browserSearch(event) {
+    event.preventDefault();
+    const input = document.getElementById("startSearch");
+    if (input) navigateBrowser("https://www.google.com/search?q=" + encodeURIComponent(input.value.trim()));
+}
+
+function navigateBrowser(url) {
+    if (!url) return;
+    const tab = currentBrowserTab();
+    if (!tab) return;
+    tab.url = url;
+    try {
+        tab.title = new URL(url).hostname || "Website";
+    } catch (e) {
+        tab.title = "Website";
+    }
+    renderBrowser();
+}
+
+function browserBack() {
+    const frame = document.getElementById("browserFrame");
+    if (frame) {
+        try { frame.contentWindow.history.back(); } catch (e) {}
+    } else {
+        browserHome();
+    }
+}
+
+function openBrowserBookmark(index) {
+    const bookmark = browserBookmarks[index];
+    if (!bookmark) return;
+    if (bookmark.url === "dogeium://games") {
+        const tab = currentBrowserTab();
+        if (!tab) return;
+        tab.url = "dogeium://games";
+        tab.title = "Games";
+        renderBrowser();
+        return;
+    }
+    navigateBrowser(bookmark.url);
+}
+
+function addBrowserBookmark(event) {
+    event.preventDefault();
+    const nameInput = document.getElementById("bookmarkName");
+    const urlInput = document.getElementById("bookmarkUrl");
+    const name = nameInput.value.trim();
+    let url = urlInput.value.trim();
+    if (!name || !url) return;
+    if (url !== "dogeium://games") url = normalizeBrowserUrl(url);
+    browserBookmarks.push({ name, url, icon: "🔖" });
+    saveBookmarks();
+    renderBrowser();
 }
 
 // APPLY CLOAK
