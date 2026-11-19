@@ -1,0 +1,131 @@
+
+<html>
+  <head>
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-L7856P3VNT");
+    </script>
+
+    <base
+      href="https://cdn.jsdelivr.net/gh/taskmaster773/google-class@cd06df26d3c4d9f73c8151fc13f7b2dc27f3adda/stickman-hook/"
+    />
+    <style>
+      html,
+      body {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      canvas {
+        width: 100%;
+      }
+
+      * {
+        cursor: none !important;
+      }
+
+      #custom-cursor {
+        position: fixed;
+        width: 9px;
+        height: 9px;
+        background: #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483647;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+      }
+
+      #cursor-circle {
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease;
+        box-shadow: 0 0 10px #ffeb00;
+      }
+    </style>
+    <script src="poki3.js"></script>
+  </head>
+
+  <body>
+    <div id="cursor-circle"></div>
+    <div id="custom-cursor"></div>
+
+    <script>
+      (function () {
+        const dot = document.getElementById("custom-cursor");
+        const circle = document.getElementById("cursor-circle");
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+          requestAnimationFrame(animate);
+        }
+        animate();
+
+        document.addEventListener("mousedown", function () {
+          circle.style.width = "27px";
+          circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+          circle.style.width = "35px";
+          circle.style.height = "35px";
+        });
+
+        document.addEventListener("mouseleave", function () {
+          dot.style.opacity = "0";
+          circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+          dot.style.opacity = "1";
+          circle.style.opacity = "1";
+        });
+      })();
+    </script>
+
+    <script src="bundle.js"></script>
+    <script
+      defer=""
+      src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+      integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+      data-cf-beacon='{"rayId":"91be7a7b6dbe0904","version":"2025.1.0","r":1,"token":"0e8becf3a433401faa232e8c05dfd1f4","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
