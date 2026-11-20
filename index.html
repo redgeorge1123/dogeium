@@ -600,6 +600,10 @@ body {
         <span>🌐</span> Browser
     </button>
 
+    <button class="nav-button" onclick="openDogeiumAboutBlank()">
+        <span>↗️</span> OPEN ABOUT:BLANK
+    </button>
+
 </div>
 
 <!-- MAIN CONTENT -->
@@ -1612,6 +1616,15 @@ async function sendChatMessage(event){
     catch(error){setChatStatus("Message failed: "+error.message);}
 }
 
+</script>
+
+<script>
+function openDogeiumAboutBlank() {
+    const newTab = window.open('about:blank', '_blank');
+    if (newTab) {
+        newTab.location.href = 'https://dogeium.vercel.app';
+    }
+}
 </script>
 
 </body>
