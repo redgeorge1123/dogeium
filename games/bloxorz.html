@@ -1,0 +1,158 @@
+
+<html>
+  <head>
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-L7856P3VNT");
+    </script>
+
+    <base
+      href="https://raw.githubusercontent.com/freebuisness/html/main/169-fix.html"
+    />
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+      }
+
+      #ruffle {
+        width: 100%;
+        height: 100%;
+      }
+
+      * {
+        cursor: none !important;
+      }
+
+      #custom-cursor {
+        position: fixed;
+        width: 9px;
+        height: 9px;
+        background: #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483647;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+      }
+
+      #cursor-circle {
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease;
+        box-shadow: 0 0 10px #ffeb00;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="ruffle"></div>
+
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script>
+      var swfobject = {};
+      swfobject.embedSWF = function (url, containerId) {
+        var ruffle = window.RufflePlayer.newest();
+        var container = document.getElementById(containerId);
+        var player = ruffle.createPlayer();
+        container.appendChild(player);
+
+        if (url) {
+          player.load({
+            url: url,
+          });
+        } else {
+          console.error("No SWF file specified in the URL parameters.");
+        }
+
+        const resizePlayer = () => {
+          container.style.width = window.innerWidth + "px";
+          container.style.height = window.innerHeight + "px";
+          player.style.width = "100%";
+          player.style.height = "100%";
+        };
+
+        resizePlayer();
+        window.addEventListener("resize", resizePlayer);
+      };
+
+      swfobject.embedSWF(
+        "https://cdn.jsdelivr.net/gh/illusionTBA/React-Ruffle@f37551ff7c55cc61002445a0f1e334742f6832e4/public/swf/Bloxors.swf",
+        "ruffle",
+      );
+    </script>
+
+    <div id="cursor-circle"></div>
+    <div id="custom-cursor"></div>
+
+    <script>
+      (function () {
+        const dot = document.getElementById("custom-cursor");
+        const circle = document.getElementById("cursor-circle");
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        document.addEventListener("mousedown", function () {
+          circle.style.width = "27px";
+          circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+          circle.style.width = "35px";
+          circle.style.height = "35px";
+        });
+
+        document.addEventListener("mouseleave", function () {
+          dot.style.opacity = "0";
+          circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+          dot.style.opacity = "1";
+          circle.style.opacity = "1";
+        });
+      })();
+    </script>
+  </body>
+</html>
