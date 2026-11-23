@@ -1,0 +1,41 @@
+<style>
+  * {
+    cursor: none !important;
+  }
+
+  #custom-cursor {
+    position: fixed;
+    width: 9px;
+    height: 9px;
+    background: #ffeb00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2147483647;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+  }
+
+  #cursor-circle {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #ffeb00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2147483646;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s ease, height 0.15s ease;
+    box-shadow: 0 0 10px #ffeb00;
+  }
+
+  @media (hover: none) {
+    #custom-cursor,
+    #cursor-circle {
+      display: none;
+    }
+
+    * {
+      cursor: auto !important;
+    }
+  }
+</style>

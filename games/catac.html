@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catac.io Play On Dogeium</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none !important;
+}
+
+body {
+    background: #101014;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Loading Screen */
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: #101014;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: opacity 0.5s ease;
+}
+
+#loadingScreen h1 {
+    font-size: 35px;
+    color: #f5bd42;
+    text-shadow: 0 0 15px #f5bd42;
+    margin-bottom: 25px;
+}
+
+.loader {
+    width: 45px;
+    height: 45px;
+    border: 4px solid #333;
+    border-top: 4px solid #f5bd42;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#loadingScreen p {
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+/* Website */
+#siteContainer {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Custom Yellow Cursor */
+#custom-cursor {
+    position: fixed;
+    width: 9px;
+    height: 9px;
+    background: #ffeb00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2147483647;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+}
+
+#cursor-circle {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #ffeb00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2147483646;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s ease, height 0.15s ease;
+    box-shadow: 0 0 10px #ffeb00;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loadingScreen">
+    <h1>Loading Proxy</h1>
+    <div class="loader"></div>
+    <p>Please wait...</p>
+</div>
+
+<div id="siteContainer">
+    <iframe
+        id="proxyFrame"
+        src="https://catac.io"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<script>
+setTimeout(() => {
+    const loading = document.getElementById("loadingScreen");
+
+    loading.style.opacity = "0";
+
+    setTimeout(() => {
+        loading.style.display = "none";
+        document.getElementById("siteContainer").style.display = "block";
+    }, 500);
+
+}, 3000);
+</script>
+
+<!-- Custom Cursor -->
+<div id="cursor-circle"></div>
+<div id="custom-cursor"></div>
+
+<script>
+(function () {
+    const dot = document.getElementById("custom-cursor");
+    const circle = document.getElementById("cursor-circle");
+
+    let mouseX = -100;
+    let mouseY = -100;
+    let circleX = -100;
+    let circleY = -100;
+
+    document.addEventListener("mousemove", function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
+    });
+
+    function animate() {
+        circleX += (mouseX - circleX) * 0.12;
+        circleY += (mouseY - circleY) * 0.12;
+
+        circle.style.left = circleX + "px";
+        circle.style.top = circleY + "px";
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    document.addEventListener("mousedown", function () {
+        circle.style.width = "27px";
+        circle.style.height = "27px";
+    });
+
+    document.addEventListener("mouseup", function () {
+        circle.style.width = "35px";
+        circle.style.height = "35px";
+    });
+
+    document.addEventListener("mouseleave", function () {
+        dot.style.opacity = "0";
+        circle.style.opacity = "0";
+    });
+
+    document.addEventListener("mouseenter", function () {
+        dot.style.opacity = "1";
+        circle.style.opacity = "1";
+    });
+})();
+</script>
+
+</body>
+</html>

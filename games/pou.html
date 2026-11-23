@@ -1,0 +1,263 @@
+<html lang="en">
+  <head>
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-L7856P3VNT");
+    </script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-");
+    </script>
+    <base
+      href="https://cdn.jsdelivr.net/gh/bubbls/youtube-playables@main/pou/"
+    />
+    <link rel="icon" type="image/png" href="assets/icon.png" />
+
+    <link rel="apple-touch-icon" type="image/png" href="assets/icon.png" />
+    <link
+      rel="stylesheet"
+      href="assets/css/app.css"
+      type="text/css"
+      nonce="nEsvHewDKSKQZPWExNde-A"
+    />
+
+    <style>
+      @media (hover: hover) and (pointer: fine) {
+        html, body, * {
+          cursor: none !important;
+        }
+
+        #custom-cursor-dot {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 9px;
+          height: 9px;
+          background: #f5bd42;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 2147483647;
+          transform: translate(-50%, -50%);
+          box-shadow: 0 0 8px #f5bd42, 0 0 16px #f5bd42;
+        }
+
+        #custom-cursor-circle {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 35px;
+          height: 35px;
+          border: 2px solid #f5bd42;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 2147483646;
+          transform: translate(-50%, -50%);
+          transition: width 0.2s ease, height 0.2s ease;
+          box-shadow: 0 0 8px rgba(245, 189, 66, 0.45);
+        }
+
+        #custom-cursor-circle.clicked {
+          width: 27px;
+          height: 27px;
+        }
+      }
+    </style>
+
+    <script nonce="nEsvHewDKSKQZPWExNde-A">
+      if (!window.ytgame) {
+        window.ytgame = {
+          SDK_VERSION: "standalone",
+          IN_PLAYABLES_ENV: false,
+          SdkError: function (t) {
+            this.errorType = t;
+            this.message = "";
+          },
+          SdkErrorType: {
+            UNDEFINED: 0,
+            GAMEAPI_UNDEFINED: 1,
+          },
+          game: {
+            firstFrameReady: function () {},
+            gameReady: function () {},
+            loadData: function () {
+              return Promise.resolve(localStorage.getItem("pou-save") || "");
+            },
+            saveData: function (data) {
+              localStorage.setItem("pou-save", data);
+              return Promise.resolve();
+            },
+          },
+          engagement: {
+            sendScore: function () {
+              return Promise.resolve();
+            },
+          },
+          ads: {
+            requestAd: function () {
+              return Promise.resolve(3);
+            },
+            requestInterstitialAd: function () {
+              return Promise.resolve();
+            },
+            AdResult: {
+              UNKNOWN: 0,
+              SHOWED: 1,
+              REJECTED: 3,
+              DISMISSED: 2,
+            },
+          },
+          health: {
+            logError: function () {},
+            logWarning: function () {},
+          },
+          system: {
+            getLanguage: function () {
+              return Promise.resolve("en");
+            },
+            isAudioEnabled: function () {
+              return true;
+            },
+            onAudioEnabledChange: function () {
+              return function () {};
+            },
+            onPause: function () {
+              return function () {};
+            },
+            onResume: function () {
+              return function () {};
+            },
+          },
+        };
+        window.ytgamehelper = {
+          myConsoleLog: function () {},
+        };
+      }
+    </script>
+
+    <script
+      defer=""
+      src="fastLib/_importer.js"
+      data-fast="fastLib/fastHeader.js"
+      data-fast-options="{'checkbrowser':false}"
+      type="text/javascript"
+      nonce="nEsvHewDKSKQZPWExNde-A"
+    ></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <div id="orientation"></div>
+
+    <script type="text/javascript" nonce="nEsvHewDKSKQZPWExNde-A">
+      document.addEventListener(
+        "fastloaded",
+        function (e) {
+          window.fast.gameReady = function () {
+            window.fast.goGame({
+              prepare: prepareGame,
+              body: [
+                "vendor/phaser.min.js",
+                "vendor/box2d-p3.min.js",
+                "pou.min.js",
+              ],
+              init: function () {
+                (window.gameStart(),
+                  window.fastActivePopup(),
+                  ytgame.game.firstFrameReady());
+              },
+              enterfs: function () {},
+              exitfs: function () {},
+              afterinfs: function () {
+                window.fastCheckMiniGameForMiui(true);
+              },
+            });
+            console.log("inside [gameReady] -> " + window.fast.lang);
+          };
+          window.fast.stageElements(window.fast.gameReady, {
+            fsbehind: true,
+            nostats: true,
+          });
+        },
+        false,
+      );
+    </script>
+
+    <script nonce="nEsvHewDKSKQZPWExNde-A">
+      async function prepareGame() {
+        window.fast.gameAudio = ytgame.system.isAudioEnabled();
+        await ytgame.system.getLanguage().then(function (lang) {
+          lang = lang.split("-")[0];
+          lang =
+            window.fast.info.languages.indexOf(lang) > -1
+              ? lang
+              : window.fast.info.languages[0];
+          console.log("set lang to " + lang);
+          window.fast.lang = lang;
+          return new Promise((resolve, reject) => {
+            resolve();
+          });
+        });
+      }
+      ytgame.system.onAudioEnabledChange(function (isAudioEnabled) {
+        if (window.fast) window.fast.gameAudio = isAudioEnabled;
+        if (typeof window.fastEnableAudio === "function")
+          window.fastEnableAudio(isAudioEnabled);
+      });
+    </script>
+
+    <div id="custom-cursor-dot"></div>
+    <div id="custom-cursor-circle"></div>
+    <script>
+      (() => {
+        if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          return;
+        }
+
+        const dot = document.getElementById("custom-cursor-dot");
+        const circle = document.getElementById("custom-cursor-circle");
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let circleX = mouseX;
+        let circleY = mouseY;
+
+        document.addEventListener("mousemove", (event) => {
+          mouseX = event.clientX;
+          mouseY = event.clientY;
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        document.addEventListener("mousedown", () => {
+          circle.classList.add("clicked");
+        });
+
+        document.addEventListener("mouseup", () => {
+          circle.classList.remove("clicked");
+        });
+
+        function animateCursor() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+          requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+      })();
+    </script>
+  </body>
+</html>

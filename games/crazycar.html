@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-L7856P3VNT");
+    </script>
+
+    <base
+      href="https://rawcdn.githack.com/bubbls/UGS-Assets/df3f505bea1fcfbe3f7e0e64c384e9ec15b47ee1/crazy%20cars/"
+    />
+
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="manifest" href="manifest.json" />
+
+    <script src="patch/poki-sdk.js"></script>
+    <script src="playcanvas-stable.min.js"></script>
+    <script src="settings__.js"></script>
+
+    <style>
+      * {
+        cursor: none !important;
+      }
+
+      #custom-cursor {
+        position: fixed;
+        width: 9px;
+        height: 9px;
+        background: #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483647;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+      }
+
+      #cursor-circle {
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease;
+        box-shadow: 0 0 10px #ffeb00;
+      }
+    </style>
+  </head>
+
+  <body style="overflow: hidden">
+    <script src="modules__.js"></script>
+    <script src="start__.js"></script>
+    <script src="loading__.js"></script>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-circle"></div>
+    <div id="custom-cursor"></div>
+
+    <script>
+      (function () {
+        const dot = document.getElementById("custom-cursor");
+        const circle = document.getElementById("cursor-circle");
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        document.addEventListener("mousedown", function () {
+          circle.style.width = "27px";
+          circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+          circle.style.width = "35px";
+          circle.style.height = "35px";
+        });
+
+        document.addEventListener("mouseleave", function () {
+          dot.style.opacity = "0";
+          circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+          dot.style.opacity = "1";
+          circle.style.opacity = "1";
+        });
+      })();
+    </script>
+  </body>
+</html>

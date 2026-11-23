@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <base href="https://cdn.jsdelivr.net/gh/web-ports/baldi-mods@main/-3/" />
+    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
+    <link rel="stylesheet" href="TemplateData/style.css" />
+
+    <style>
+      * {
+        cursor: none !important;
+      }
+
+      #custom-cursor {
+        position: fixed;
+        width: 9px;
+        height: 9px;
+        background: #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483647;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #ffeb00, 0 0 20px #ffeb00;
+      }
+
+      #cursor-circle {
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        border: 2px solid #ffeb00;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease;
+        box-shadow: 0 0 10px #ffeb00;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="loading-text"
+      style="
+        color: white;
+        font-size: 48px;
+        font-family: cursive;
+        text-align: center;
+        margin-top: 20px;
+      "
+    >
+      LOADING...
+    </div>
+
+    <div id="unity-container">
+      <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"></div>
+    </div>
+
+    <script>
+      var loadingText = document.querySelector("#loading-text");
+      let totalBytes = 0;
+      let loadedBytes = 0;
+
+      async function fetchWithProgress(url) {
+        const response = await fetch(url);
+        const reader = response.body.getReader();
+        let chunks = [];
+        let received = 0;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          received += value.length;
+          loadedBytes += value.length;
+          chunks.push(value);
+
+          let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+          let mbTotal = "111.21";
+          loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
+        }
+
+        let fullBuffer = new Uint8Array(received);
+        let offset = 0;
+
+        for (let chunk of chunks) {
+          fullBuffer.set(chunk, offset);
+          offset += chunk.length;
+        }
+
+        return fullBuffer.buffer;
+      }
+
+      async function mergeFiles(fileParts, cacheKey) {
+        const cache = await caches.open("-3-cache");
+        const cachedResponse = await cache.match(cacheKey);
+
+        if (cachedResponse) {
+          const blob = await cachedResponse.blob();
+          return URL.createObjectURL(blob);
+        }
+
+        const buffers = await Promise.all(
+          fileParts.map((part) => fetchWithProgress(part)),
+        );
+
+        const mergedBlob = new Blob(buffers);
+        const response = new Response(mergedBlob);
+        await cache.put(cacheKey, response);
+
+        return URL.createObjectURL(mergedBlob);
+      }
+
+      function getParts(file, start, end) {
+        let parts = [];
+
+        for (let i = start; i <= end; i++) {
+          parts.push(file + ".part" + i);
+        }
+
+        return parts;
+      }
+
+      (async () => {
+        const [dataUrl, wasmUrl] = await Promise.all([
+          mergeFiles(getParts("Build/minus3bog.data", 1, 5), "minus3bog.data"),
+          mergeFiles(getParts("Build/minus3bog.wasm", 1, 2), "minus3bog.wasm"),
+        ]);
+
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBarFull = document.querySelector(
+          "#unity-progress-bar-full",
+        );
+        var warningBanner = document.querySelector("#unity-warning");
+
+        function unityShowBanner(msg, type) {}
+
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/minus3bog.loader.js";
+
+        var config = {
+          dataUrl: dataUrl,
+          frameworkUrl: "Build/minus3bog.framework.js",
+          codeUrl: wasmUrl,
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "Mauzer2137",
+          productName: "-3",
+          productVersion: "3.-3",
+        };
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          var meta = document.createElement("meta");
+          meta.name = "viewport";
+          meta.content =
+            "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
+          document.getElementsByTagName("head")[0].appendChild(meta);
+        }
+
+        loadingBar.style.display = "block";
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+
+        script.onload = () => {
+          createUnityInstance(canvas, config, (progress) => {
+            progressBarFull.style.width = 100 * progress + "%";
+          })
+            .then((unityInstance) => {
+              loadingBar.style.display = "none";
+              loadingText.remove();
+            })
+            .catch((message) => {
+              alert(message);
+            });
+        };
+
+        document.body.appendChild(script);
+      })();
+    </script>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-circle"></div>
+    <div id="custom-cursor"></div>
+
+    <script>
+      (function () {
+        const dot = document.getElementById("custom-cursor");
+        const circle = document.getElementById("cursor-circle");
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let circleX = -100;
+        let circleY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          dot.style.left = mouseX + "px";
+          dot.style.top = mouseY + "px";
+        });
+
+        function animate() {
+          circleX += (mouseX - circleX) * 0.12;
+          circleY += (mouseY - circleY) * 0.12;
+
+          circle.style.left = circleX + "px";
+          circle.style.top = circleY + "px";
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        document.addEventListener("mousedown", function () {
+          circle.style.width = "27px";
+          circle.style.height = "27px";
+        });
+
+        document.addEventListener("mouseup", function () {
+          circle.style.width = "35px";
+          circle.style.height = "35px";
+        });
+
+        document.addEventListener("mouseleave", function () {
+          dot.style.opacity = "0";
+          circle.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", function () {
+          dot.style.opacity = "1";
+          circle.style.opacity = "1";
+        });
+      })();
+    </script>
+  </body>
+</html>

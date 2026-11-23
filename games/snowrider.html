@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/gh/Vrkids2009/snowrider3d@6b7c2b9167b592528b221428414e63f06c4640b9/TemplateData/UnityProgress.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Vrkids2009/snowrider3d@6b7c2b9167b592528b221428414e63f06c4640b9/Build/UnityLoader.js"></script>
 
+    <!-- Custom yellow cursor -->
     <style>
       * {
         cursor: none !important;
@@ -41,6 +42,17 @@
         transition: width 0.15s ease, height 0.15s ease;
         box-shadow: 0 0 10px #ffeb00;
       }
+
+      @media (hover: none) {
+        #custom-cursor,
+        #cursor-circle {
+          display: none;
+        }
+
+        * {
+          cursor: auto !important;
+        }
+      }
     </style>
 
     <script>
@@ -67,6 +79,7 @@
       ></div>
     </div>
 
+    <!-- Custom cursor elements -->
     <div id="cursor-circle"></div>
     <div id="custom-cursor"></div>
 
