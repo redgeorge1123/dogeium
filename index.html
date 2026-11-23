@@ -90,13 +90,89 @@ body {
 /* HOME */
 #home {
     display: none;
+    position: relative;
+    min-height: calc(100vh - 60px);
+    overflow: hidden;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 }
 
 #home.active {
     display: flex;
+}
+
+/* Falling game cards behind the homepage content */
+#fallingGamesBackground {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.falling-game-card {
+    position: absolute;
+    top: -150px;
+    width: clamp(88px, 8.5vw, 128px);
+    opacity: 0.68;
+    pointer-events: auto;
+    cursor: pointer !important;
+    animation: fallingGames 58s linear infinite;
+    will-change: transform;
+    box-shadow: 0 3px 14px #0008;
+}
+
+.falling-game-card:hover {
+    opacity: 1 !important;
+    z-index: 5;
+    border-color: #f5bd42;
+    box-shadow: 0 0 18px #f5bd4280;
+}
+
+.falling-game-card .game-image {
+    height: clamp(62px, 6.2vw, 88px);
+}
+
+.falling-game-card .game-info {
+    padding: 6px 4px;
+}
+
+.falling-game-card .game-info h3 {
+    font-size: clamp(10px, 0.9vw, 13px);
+    line-height: 1.2;
+}
+
+@keyframes fallingGames {
+    from { transform: translateY(-170px) rotate(-2deg); }
+    to { transform: translateY(calc(100vh + 190px)) rotate(2deg); }
+}
+
+@media (max-width: 700px) {
+    .falling-game-card {
+        width: 64px;
+    }
+    .falling-game-card .game-image {
+        height: 46px;
+    }
+    .falling-game-card .game-info {
+        padding: 4px 2px;
+    }
+    .falling-game-card .game-info h3 {
+        font-size: 8px;
+    }
+}
+
+.home-content {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+}
+
+.home-heading {
+    text-align: center;
+    padding: 28px 0 38px;
 }
 
 #home h1 {
@@ -612,8 +688,14 @@ body {
     <!-- HOME PAGE -->
     <section class="page active" id="home">
 
-        <h1>DOGEIUM</h1>
-        <p>WELCOME TO DOGEIUM</p>
+        <div id="fallingGamesBackground"></div>
+
+        <div class="home-content">
+            <div class="home-heading">
+                <h1>DOGEIUM</h1>
+                <p>WELCOME TO DOGEIUM</p>
+            </div>
+        </div>
 
     </section>
 
@@ -724,6 +806,11 @@ body {
                 <div class="game-info"><h3>Bad Time Simulator</h3></div>
             </div>
 
+            <div class="game-card" onclick="openGame('/games/worsttime.html')">
+                <img class="game-image" src="/images/worsttime.png" alt="Uvuvwevwevwe">
+                <div class="game-info"><h3>Worst Time Simulator</h3></div>
+            </div>
+
             <div class="game-card" onclick="openGame('/games/schoolboy.html')">
                 <img class="game-image" src="/images/schoolboy.png" alt="Schoolboy Runaway">
                 <div class="game-info"><h3>Schoolboy Runaway</h3></div>
@@ -757,6 +844,21 @@ body {
             <div class="game-card" onclick="openGame('/games/raldi.html')">
                 <img class="game-image" src="/images/raldi.png" alt="Uvuvwevwevwe">
                 <div class="game-info"><h3>Raldis CrackHouse</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/-b.html')">
+                <img class="game-image" src="/images/-b.png" alt="Uvuvwevwevwe">
+                <div class="game-info"><h3>-b</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/-3.html')">
+                <img class="game-image" src="/images/-3.png" alt="Uvuvwevwevwe">
+                <div class="game-info"><h3>-3</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/tcubed.html')">
+                <img class="game-image" src="/images/tcubed.png" alt="Uvuvwevwevwe">
+                <div class="game-info"><h3>T Cubed</h3></div>
             </div>
 
             <div class="game-card" onclick="openGame('/games/sprunki.html')">
@@ -1024,6 +1126,116 @@ body {
                 <div class="game-info"><h3>Bloxorz</h3></div>
             </div>
 
+            <div class="game-card" onclick="openGame('/games/sab.html')">
+                <img class="game-image" src="/images/sab.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Steal A Brainrot</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/pou.html')">
+                <img class="game-image" src="/images/pou.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Pou</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/gtag.html')">
+                <img class="game-image" src="/images/gtag.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Gorilla Tag</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/googlefeud.html')">
+                <img class="game-image" src="/images/googlefeud.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Google Feud</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/goingballs.html')">
+                <img class="game-image" src="/images/goingballs.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Going Balls</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/paperio.html')">
+                <img class="game-image" src="/images/paperio.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Paper.io 2</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/catac.html')">
+                <img class="game-image" src="/images/catac.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Catac.io</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/gunspin.html')">
+                <img class="game-image" src="/images/gunspin.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Gun Spin</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/peak.html')">
+                <img class="game-image" src="/images/peak.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Peak</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/cuphead.html')">
+                <img class="game-image" src="/images/cuphead.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Cuphead</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/twerkrace.html')">
+                <img class="game-image" src="/images/twerkrace.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Twerk Race</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/bloxorz.html')">
+                <img class="game-image" src="/images/bloxorz.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Bloxorz</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/polytrack.html')">
+                <img class="game-image" src="/images/polytrack.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Poly Track</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/crazycar.html')">
+                <img class="game-image" src="/images/crazycar.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Crazy Cars</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/slitherio.html')">
+                <img class="game-image" src="/images/slitherio.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Slither.io</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/yanderesim.html')">
+                <img class="game-image" src="/images/yanderesim.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Yandere Simulator</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/snowrider.html')">
+                <img class="game-image" src="/images/snowrider.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Snow Rider 3D</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/tallmanrun.html')">
+                <img class="game-image" src="/images/tallmanrun.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Tall Man Run</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/solorsmash.html')">
+                <img class="game-image" src="/images/solorsmash.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Solor Smash</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/slimerancher.html')">
+                <img class="game-image" src="/images/slimerancher.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Slime Rancher</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/tunnelrush.html')">
+                <img class="game-image" src="/images/tunnelrush.png" alt="1v1.LoL">
+                <div class="game-info"><h3>Tunnel Rush</h3></div>
+            </div>
+
+            <div class="game-card" onclick="openGame('/games/twistedrope.html')">
+                <img class="game-image" src="/images/twistedrope.png" alt="Uvuvwevwevwe">
+                <div class="game-info"><h3>Twisted Rope</h3></div>
+            </div>
+
         </div>
 
         <div class="no-results" id="noResults">
@@ -1138,10 +1350,48 @@ function showPage(page, button) {
     button.classList.add('active');
 }
 
-// AUTOMATIC GAME COUNTER
+// AUTOMATIC GAME COUNTER + FALLING HOMEPAGE BACKGROUND
 function updateGameCount() {
-    const totalGames = document.querySelectorAll('#gamesGrid .game-card').length;
-    document.getElementById('gameCount').textContent = totalGames;
+    const gameCards = Array.from(document.querySelectorAll('#gamesGrid .game-card'));
+    document.getElementById('gameCount').textContent = gameCards.length;
+
+    // Make clickable copies of every game and distribute them across narrow,
+    // evenly spaced lanes. More lanes and a slower fall keep cards separated.
+    const background = document.getElementById('fallingGamesBackground');
+    if (background) {
+        background.innerHTML = '';
+        const laneCount = window.innerWidth <= 700 ? 5 : 12;
+        const laneIndexes = Array(laneCount).fill(0);
+        const cardsPerLane = Array.from({ length: laneCount }, (_, lane) =>
+            Math.ceil(Math.max(0, gameCards.length - lane) / laneCount)
+        );
+        const fallDuration = 58;
+
+        gameCards.forEach((card, index) => {
+            const clone = card.cloneNode(true);
+            const lane = index % laneCount;
+            const positionInLane = laneIndexes[lane]++;
+            const countInLane = cardsPerLane[lane] || 1;
+
+            clone.classList.add('falling-game-card');
+            clone.setAttribute('role', 'button');
+            clone.setAttribute('tabindex', '0');
+            clone.setAttribute('aria-label', `Play ${clone.querySelector('h3')?.textContent || 'game'}`);
+            clone.style.left = `calc(${(lane + 0.5) * 100 / laneCount}% - ${window.innerWidth <= 700 ? '32px' : '64px'})`;
+            clone.style.animationDelay = `${-(positionInLane / countInLane) * fallDuration}s`;
+            clone.style.animationDuration = `${fallDuration}s`;
+            clone.style.opacity = `${0.38 + (index % 3) * 0.05}`;
+
+            // Keep the original click action and also support keyboard activation.
+            clone.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    clone.click();
+                }
+            });
+            background.appendChild(clone);
+        });
+    }
 }
 
 // SEARCH GAMES
