@@ -363,6 +363,67 @@ body {
     font-size: 13px;
 }
 
+
+/* SETTINGS */
+.settings-box {
+    max-width: 620px;
+    background: #1b1b23;
+    border: 1px solid #30303b;
+    border-radius: 13px;
+    padding: 22px;
+}
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 17px 0;
+    border-bottom: 1px solid #30303b;
+}
+.setting-row:last-child { border-bottom: 0; }
+.setting-row strong { display: block; margin-bottom: 5px; }
+.setting-row small { color: #888; line-height: 1.4; }
+.setting-toggle {
+    width: 48px;
+    height: 26px;
+    flex: 0 0 auto;
+    appearance: none;
+    background: #45454f;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer !important;
+    transition: background .2s;
+}
+.setting-toggle::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    border-radius: 50%;
+    background: white;
+    transition: transform .2s;
+}
+.setting-toggle:checked { background: #f5bd42; }
+.setting-toggle:checked::before { transform: translateX(22px); background: #101014; }
+.settings-reset {
+    margin-top: 20px;
+    padding: 12px 17px;
+    border: 0;
+    border-radius: 8px;
+    background: #f5bd42;
+    color: #101014;
+    font-weight: bold;
+    cursor: pointer !important;
+}
+body.hide-custom-cursor, body.hide-custom-cursor * {
+    cursor: auto !important;
+}
+body.hide-custom-cursor .cursor-dot,
+body.hide-custom-cursor .cursor-circle { display: none !important; }
+body.hide-falling-games #fallingGamesBackground { display: none !important; }
+
 /* CUSTOM YELLOW CURSOR */
 .cursor-dot {
     position: fixed;
@@ -674,6 +735,10 @@ body {
 
     <button class="nav-button" onclick="showPage('browser',this); renderBrowser()">
         <span>🌐</span> Browser
+    </button>
+
+    <button class="nav-button" onclick="showPage('settings',this); loadSettings()">
+        <span>⚙️</span> Settings
     </button>
 
     <button class="nav-button" onclick="openDogeiumAboutBlank()">
@@ -1300,6 +1365,39 @@ body {
         </div>
     </section>
 
+    <!-- SETTINGS PAGE -->
+    <section class="page" id="settings">
+        <h1 class="page-title">SETTINGS</h1>
+        <div class="settings-box">
+            <div class="setting-row">
+                <div>
+                    <strong>Falling Game Cards</strong>
+                    <small>Show or hide the animated game cards on the home page.</small>
+                </div>
+                <input class="setting-toggle" type="checkbox" id="settingFallingGames"
+                       onchange="saveSettings()">
+            </div>
+            <div class="setting-row">
+                <div>
+                    <strong>Custom Yellow Cursor</strong>
+                    <small>Use the DOGEIUM yellow dot and trailing circle cursor.</small>
+                </div>
+                <input class="setting-toggle" type="checkbox" id="settingCustomCursor"
+                       onchange="saveSettings()">
+            </div>
+            <div class="setting-row">
+                <div>
+                    <strong>AntiClose/AntiBlock</strong>
+                    <small>Show the browser's leave-page confirmation when you try to close or reload this tab.</small>
+                </div>
+                <input class="setting-toggle" type="checkbox" id="settingAntiClose"
+                       onchange="saveSettings()">
+            </div>
+            <button class="settings-reset" onclick="resetSettings()">Reset Settings</button>
+            <p class="note">Your settings are saved in this browser.</p>
+        </div>
+    </section>
+
     <!-- BROWSER PAGE -->
     <section class="page" id="browser">
         <h1 class="page-title">DOGEIUM BROWSER</h1>
@@ -1327,6 +1425,71 @@ body {
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <script>
+
+// ANTICLOSE / ANTIBLOCK
+let antiCloseEnabled = false;
+
+function setAntiClose(enabled) {
+    antiCloseEnabled = enabled;
+
+    // Add or remove the browser's native leave-page confirmation.
+    window.removeEventListener("beforeunload", handleAntiClose);
+    if (antiCloseEnabled) {
+        window.addEventListener("beforeunload", handleAntiClose);
+    }
+}
+
+function handleAntiClose(event) {
+    if (!antiCloseEnabled) return;
+    event.preventDefault();
+    // Modern browsers choose the wording of this confirmation themselves.
+    event.returnValue = "";
+}
+
+// DOGEIUM SETTINGS
+function loadSettings() {
+    let settings = {};
+    try {
+        settings = JSON.parse(localStorage.getItem("dogeium_settings") || "{}");
+    } catch (error) {
+        settings = {};
+    }
+
+    const falling = settings.fallingGames !== false;
+    const customCursor = settings.customCursor !== false;
+    const antiClose = settings.antiClose === true;
+
+    document.getElementById("settingFallingGames").checked = falling;
+    document.getElementById("settingCustomCursor").checked = customCursor;
+    document.getElementById("settingAntiClose").checked = antiClose;
+    document.body.classList.toggle("hide-falling-games", !falling);
+    document.body.classList.toggle("hide-custom-cursor", !customCursor);
+    setAntiClose(antiClose);
+}
+
+function saveSettings() {
+    const settings = {
+        fallingGames: document.getElementById("settingFallingGames").checked,
+        customCursor: document.getElementById("settingCustomCursor").checked,
+        antiClose: document.getElementById("settingAntiClose").checked
+    };
+
+    try {
+        localStorage.setItem("dogeium_settings", JSON.stringify(settings));
+    } catch (error) {
+        // Settings still apply for the current page if storage is unavailable.
+    }
+
+    document.body.classList.toggle("hide-falling-games", !settings.fallingGames);
+    document.body.classList.toggle("hide-custom-cursor", !settings.customCursor);
+}
+
+function resetSettings() {
+    try {
+        localStorage.removeItem("dogeium_settings");
+    } catch (error) {}
+    loadSettings();
+}
 
 // PAGE NAVIGATION
 function showPage(page, button) {
@@ -1753,6 +1916,9 @@ function animateCursor() {
 
 animateCursor();
 
+// LOAD SAVED SETTINGS
+loadSettings();
+
 // INITIALIZE GAME COUNTER
 updateGameCount();
 
@@ -1853,7 +2019,7 @@ function startChatListeners(){
 }
 async function copyFriendCode(){if(!myCode)return;try{await navigator.clipboard.writeText(myCode);setChatStatus("Friend code copied: "+myCode);}catch(e){setChatStatus("Your friend code is "+myCode+" — copy it manually.");}}
 async function sendFriendRequest(){
-    if(!chatUID){setChatStatus("Connect Firebase first.");return;}
+    if(!chatUID){setChatStatus("ERROR.");return;}
     const code=document.getElementById("friendCodeInput").value.trim().toUpperCase();
     if(!/^[A-HJ-NP-Z2-9]{8}$/.test(code)){setChatStatus("Enter a valid 8-character friend code.");return;}
     try{
